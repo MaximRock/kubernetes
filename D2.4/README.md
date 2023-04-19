@@ -1,4 +1,4 @@
----
+----
 - Установка Docker и Minikube в playbook Asible
 - minikube version
 
@@ -8,3 +8,8 @@
 - minikube start --nodes 5
 
 ![2](https://user-images.githubusercontent.com/95434302/233157368-41ce6b70-7820-4136-9903-84d92e13b837.png)
+
+----
+- minikube status
+
+![3](https://user-images.githubusercontent.com/95434302/233158712-756708d0-92e7-4251-bf16-4b92de806e81.png)
