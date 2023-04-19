@@ -17,4 +17,4 @@
 ----
 - minikube node list
 
-![4](https://user-images.githubusercontent.com/95434302/233159667-492a2126-46b2-4c04-8ecb-d7f9b6579854.png)
+![4](https://user-images.githubusercontent.com/95434302/233159911-45433a6e-4107-4d06-9c92-75fcb63a0fbe.png)
