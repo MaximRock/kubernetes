@@ -1,0 +1,12 @@
+---
+
+- name: Install Minicube
+  hosts: all
+  become: true
+  roles:
+    - role: DOCKER 
+      tags:
+        - docker
+    - role: MINIKUBE
+      tags:
+        - minikube

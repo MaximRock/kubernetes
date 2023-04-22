@@ -1,0 +1,48 @@
+---
+
+- name: Update and upgrade apt packages
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Install required system packages
+  ansible.builtin.apt:
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+    state: latest
+    update_cache: true
+
+- name: Add Docker GPG apt Key
+  ansible.builtin.apt_key:
+    url: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
+    state: present
+
+- name: Add Docker Repository
+  ansible.builtin.apt_repository:
+    repo: "deb https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+    state: present
+
+- name: Update apt and install docker-ce
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: true
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    - docker-compose-plugin
+
+- name: Current User
+  become_user: admin
+  ansible.builtin.shell: echo $USER
+  register: __user
+    
+- name: Add user to docker group
+  ansible.builtin.user:
+    name: "{{ __user.stdout }}"
+    groups:
+      - docker
+    append: true  
