@@ -1,0 +1,57 @@
+---
+
+- name: Create directory
+  become_user: admin
+  ansible.builtin.file:
+    path: '~/minicube-setup'
+    state: directory
+    owner: admin
+    group: admin
+    mode: 0755
+  register: __minicube_directory
+  tags: 
+    - del_kubectl
+    - install_deployment
+
+# - name: Debug
+#   become_user: admin
+#   ansible.builtin.debug:
+#     msg: "{{ __minicube_directory.path }}"
+
+- name: Copy
+  ansible.builtin.copy:
+    src: "file/{{ item }}"
+    dest: "{{ __minicube_directory.path }}"
+    owner: admin
+    group: admin
+    force: true
+  loop:
+    - "deployment.yaml"
+    - "configmap.yaml"
+    - "service.yaml"
+    - "secret.yaml"
+  tags: install_deployment  
+
+- name: shell
+  become_user: admin
+  ansible.builtin.shell: kubectl apply -f {{ __minicube_directory.path }}
+  register: __kubectl_deployment
+  tags: install_deployment  
+
+- name: Print debug
+  become_user: admin
+  ansible.builtin.debug:
+    msg: "{{ __kubectl_deployment.stdout_lines }}"
+  tags: install_deployment    
+
+- name: Delete deployment
+  become_user: admin
+  ansible.builtin.shell: kubectl delete -f {{ __minicube_directory.path }}
+  register: __kubectl_delete_deployment
+  tags: del_kubectl
+
+- name: Print debug delete deployment
+  become_user: admin
+  ansible.builtin.debug:
+    msg: "{{ __kubectl_delete_deployment.stdout_lines }}"
+  tags: del_kubectl  

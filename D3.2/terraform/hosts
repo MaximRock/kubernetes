@@ -1,0 +1,2 @@
+[test]
+minikube-0 ansible_host=admin@158.160.48.90
