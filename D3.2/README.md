@@ -1,6 +1,6 @@
 ----
 - Для запуска проекта:
-    ./setup.sh
+        ./setup.sh
 
 - директория terraform - установка instance;
 - директория minikube-setup - ansible plyaybook с установкой docker, minikube, kubectl, deployment;
