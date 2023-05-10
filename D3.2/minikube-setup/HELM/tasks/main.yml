@@ -1,0 +1,65 @@
+---
+
+- name: Download Helm 
+  ansible.builtin.unarchive:
+    src: "{{ helm_repo_path }}/helm-{{ helm_version }}-{{ helm_platform }}-{{ helm_arch }}.tar.gz"
+    dest: /tmp
+    remote_src: true
+    mode: '0755'
+
+- name: Copy file binare
+  ansible.builtin.copy:
+    src: "/tmp/{{ helm_platform }}-{{ helm_arch }}/helm"
+    dest: "/usr/local/bin/helm"
+    mode: '0755'
+    remote_src: true
+
+- name: Helm Version
+  ansible.builtin.shell: helm version
+  register: __helm_version
+
+- name: Print helm version
+  ansible.builtin.debug:
+    msg: "{{ __helm_version.stdout_lines }}"
+
+- name: Add a repository
+  become_user: admin
+  kubernetes.core.helm_repository:
+    name: prometheus
+    repo_url: "https://prometheus-community.github.io/helm-charts"
+
+- name: Deploy Prometheus chart
+  become_user: admin
+  kubernetes.core.helm:
+    name: prometheus
+    chart_ref: prometheus/prometheus
+    release_namespace: monitoring
+    create_namespace: true
+
+- name: Copy file values.yaml
+  ansible.builtin.copy:
+    src: "file/values.yaml" 
+    dest: "/home/admin/values.yaml"
+    mode: '0755'
+
+- name: Сonfiguration Prometheus chart
+  become_user: admin
+  kubernetes.core.helm:
+    name: prometheus
+    chart_ref: prometheus/prometheus
+    release_namespace: monitoring
+    values_files:
+      - /home/admin/values.yaml
+
+- name: Pause for 1 minutes
+  ansible.builtin.pause:
+    minutes: 1      
+
+- name: Kubectl pods
+  become_user: admin
+  ansible.builtin.shell: kubectl get pods -n monitoring
+  register: __helm_pods_info
+
+- name: Print helm pods info
+  ansible.builtin.debug:
+    msg: "{{ __helm_pods_info.stdout_lines }}"

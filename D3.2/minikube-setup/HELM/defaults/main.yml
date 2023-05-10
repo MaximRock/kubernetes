@@ -1,0 +1,7 @@
+---
+
+#https://get.helm.sh/helm-v3.11.3-linux-amd64.tar.gz
+helm_version: 'v3.11.3'
+helm_platform: 'linux'
+helm_arch: 'amd64'
+helm_repo_path: 'https://get.helm.sh'

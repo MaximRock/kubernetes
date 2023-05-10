@@ -13,4 +13,4 @@ sleep 60s > /dev/null 2>&1
 cd .. && cd ./minikube-setup > /dev/null 2>&1
 
 # запускаем ansible-playbook 
-ansible-playbook play.yml --tags="docker, minikube, install_deployment"
+ansible-playbook play.yml --tags="docker, minikube, install_deployment, helm"
