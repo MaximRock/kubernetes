@@ -1,1 +1,0 @@
-{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"k8s-cluster-account","Source":"./modules/account","Dir":"modules/account"},{"Key":"k8s-cluster-network","Source":"./modules/network","Dir":"modules/network"},{"Key":"k8s-instance-masters","Source":"./modules/instance","Dir":"modules/instance"}]}
