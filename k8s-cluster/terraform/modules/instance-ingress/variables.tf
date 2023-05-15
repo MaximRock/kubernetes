@@ -1,3 +1,5 @@
+# variable instance ingress
+
 variable "yc_folder_id" {
   type        = string
   description = "Yndex Cloud folder id"
@@ -8,6 +10,11 @@ variable "yc_service_account_id" {
   type        = string
   description = "Yndex cloud service account id"
 }
+
+# variable "load_balancer" {
+#   type        = string
+#   description = "Yandex Cloud load balancer instancee ingress"
+# }
 
 variable "network_id" {
   type        = string
