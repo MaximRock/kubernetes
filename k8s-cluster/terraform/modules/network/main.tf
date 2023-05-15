@@ -11,5 +11,3 @@ resource "yandex_vpc_subnet" "k8s-subnet" {
   network_id     = yandex_vpc_network.k8s-network.id
   v4_cidr_blocks = ["192.168.${count.index + 1}0.0/24"]
 }
-
-

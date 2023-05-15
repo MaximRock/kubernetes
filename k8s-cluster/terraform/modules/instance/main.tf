@@ -1,10 +1,10 @@
 resource "yandex_compute_instance_group" "k8s-masters" {
-  name               = "k8s-masters"
+  name               = var.instance_group_name
   folder_id          = var.yc_folder_id
   service_account_id = var.yc_service_account_id
 
   instance_template {
-    name = "master-{instance.index}"
+    name = "${var.name_instance}-{instance.index}"
 
     resources {
       memory        = 2
@@ -16,7 +16,7 @@ resource "yandex_compute_instance_group" "k8s-masters" {
       initialize_params {
         image_id = "fd8r9ntkrnrn46fkh0e4" # ubuntu 22.04
         size     = 10
-        type     = "network-ssd"
+        type     = var.boot_disk_type
       }
     }
 
@@ -37,7 +37,7 @@ resource "yandex_compute_instance_group" "k8s-masters" {
 
   scale_policy {
     fixed_scale {
-      size = 3
+      size = var.scale_policy_size
     }
   }
 
@@ -46,7 +46,6 @@ resource "yandex_compute_instance_group" "k8s-masters" {
       "ru-central1-a",
       "ru-central1-b",
       "ru-central1-c",
-
     ]
   }
 
