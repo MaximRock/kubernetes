@@ -1,3 +1,5 @@
+# varibles instance
+
 variable "yc_folder_id" {
   type        = string
   description = "Yndex Cloud folder id"

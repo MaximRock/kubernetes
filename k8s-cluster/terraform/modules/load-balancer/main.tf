@@ -17,7 +17,8 @@ resource "yandex_lb_network_load_balancer" "k8s-load-balancer" {
       name = "http"
       http_options {
         port = 80
-        path = "/healthz"
+        path = "/"
+        #path = "/healthz"
       }
     }
   }

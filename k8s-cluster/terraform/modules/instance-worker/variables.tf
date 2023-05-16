@@ -1,4 +1,4 @@
-# variable instance ingress
+# varibles instance group workers
 
 variable "yc_folder_id" {
   type        = string

@@ -1,13 +1,7 @@
-# instance ingress
-
-resource "yandex_compute_instance_group" "k8s-ingresses" {
+resource "yandex_compute_instance_group" "k8s-workers" {
   name               = var.instance_group_name
   folder_id          = var.yc_folder_id
   service_account_id = var.yc_service_account_id
-
-  load_balancer {
-    target_group_name = "k8s-lb-ingresses"
-  }
 
   instance_template {
     name = "${var.name_instance}-{instance.index}"

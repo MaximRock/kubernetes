@@ -8,7 +8,7 @@ provider "yandex" {
 
 # Создаем сервис аккаунт SA
 resource "yandex_iam_service_account" "sa" {
-  name        = "admin"
+  name        = "test"
   description = "Yandex cloud service account"
   folder_id   = var.yc_folder_id
 }
