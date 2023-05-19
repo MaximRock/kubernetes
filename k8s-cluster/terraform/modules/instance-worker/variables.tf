@@ -3,7 +3,7 @@
 variable "yc_folder_id" {
   type        = string
   description = "Yndex Cloud folder id"
-  default     = "b1gt036erts2va4jvqeq"
+  default     = ""
 }
 
 variable "yc_service_account_id" {
