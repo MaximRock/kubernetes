@@ -7,15 +7,15 @@ resource "yandex_compute_instance_group" "k8s-masters" {
     name = "${var.name_instance}-{instance.index}"
 
     resources {
-      memory        = 2
-      cores         = 2
-      core_fraction = 20
+      memory        = var.memory_size
+      cores         = var.cores_size
+      core_fraction = var.core_fraction_size
     }
 
     boot_disk {
       initialize_params {
-        image_id = "fd8r9ntkrnrn46fkh0e4" # ubuntu 22.04
-        size     = 10
+        image_id = var.boot_disk_image #"fd8r9ntkrnrn46fkh0e4" # ubuntu 22.04
+        size     = var.boot_disk_size
         type     = var.boot_disk_type
       }
     }
