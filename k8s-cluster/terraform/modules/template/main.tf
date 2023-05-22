@@ -1,7 +1,7 @@
 # template
 
 resource "local_file" "hosts-ansible" {
-  content = templatefile("./hosts.tpl",
+  content = templatefile("./inventory.ini.tpl",
     {
       hostname_master_1            = var.hostname_master_1
       external_ip_address_master_1 = var.external_ip_address_master_1
@@ -21,5 +21,5 @@ resource "local_file" "hosts-ansible" {
 
     }
   )
-  filename = "./hosts"
+  filename = "./inventory.ini"
 }

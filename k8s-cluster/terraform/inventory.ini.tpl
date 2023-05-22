@@ -1,4 +1,4 @@
-${hostname_master_1} ansible_host=admin@${external_ip_address_master_1}
+#${hostname_master_1} ansible_host=admin@${external_ip_address_master_1}
 
 # ## Configure 'ip' variable to bind kubernetes services on a
 # ## different ip than the default iface

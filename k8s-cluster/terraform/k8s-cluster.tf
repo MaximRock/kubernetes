@@ -105,6 +105,14 @@ module "k8s-template" {
   depends_on = [module.k8s-cluster-account, module.k8s-cluster-network, module.k8s-instance-masters, module.k8s-instance-worker]
 }
 
+module "k8s-provisioning" {
+  source               = "./modules/provisioning"
+  hostname_srv_instans = module.k8s-instance-srv.k8s_instance[0].network_interface.0.nat_ip_address
+
+  depends_on = [module.k8s-cluster-account, module.k8s-cluster-network, module.k8s-instance-masters, module.k8s-instance-worker, module.k8s-template]
+}
+
+
 # module "k8s-instance-ingresses" {
 #   source                   = "./modules/instance-ingress"
 #   yc_service_account_id    = module.k8s-cluster-account.yc_service_account_id
