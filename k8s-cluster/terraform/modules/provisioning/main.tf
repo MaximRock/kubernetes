@@ -11,19 +11,41 @@ resource "null_resource" "preparation-srv" {
   provisioner "remote-exec" {
     inline = [
       "sudo apt update",
+      "mkdir /home/admin/k8s-cluster",
       "sudo apt install pip -y",
-      "mkdir ~/k8s-cluster",
       "cd ~/k8s-cluster",
       "git clone https://github.com/kubernetes-sigs/kubespray.git",
       "cd ./kubespray",
       "sudo pip install -r requirements.txt",
-      "cp -rfp inventory/sample inventory/k8s-project",
+      "cp -rfp inventory/sample inventory/mycluster",
     ]
   }
 
-  #   provisioner "file" {
-  #     source      = "inventory.ini"
-  #     destination = "~/k8s-cluster-1"
-  #   }
+  provisioner "file" {
+    source      = "D:\\prog\\GitHub\\kubernetes\\k8s-cluster\\terraform\\inventory.ini"
+    destination = "/home/admin/k8s-cluster/kubespray/inventory/mycluster/inventory.ini"
+  }
+
+  provisioner "file" {
+    source      = "D:\\prog\\GitHub\\kubernetes\\k8s-cluster\\terraform\\my.key"
+    destination = "/home/admin/.ssh/my.key"
+  }
+
+  provisioner "file" {
+    source      = "D:\\prog\\GitHub\\kubernetes\\k8s-cluster\\terraform\\my.key.pub"
+    destination = "/home/admin/.ssh/my.key.pub"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "cd ~/.ssh",
+      "chmod 600 my.key",
+    ]
+  }
+
+  provisioner "file" {
+    source      = "D:\\prog\\GitHub\\jenkins\\project_jenkins\\ansible"
+    destination = "/home/admin/k8s-cluster/"
+  }
 
 }
